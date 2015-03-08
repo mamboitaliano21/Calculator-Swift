@@ -47,39 +47,78 @@ class ViewController: UIViewController {
                 displayValue = 0
             }
         }
+       println(brain.description)
     }
 
 
     @IBAction func clear() {
         self.brain = CalculatorBrain()
         display.text = "0"
+        userInMiddleOfTypingANumber = false
         history.text = nil
     }
  
     
     @IBAction func enter() {
         userInMiddleOfTypingANumber = false
-        if let result = brain.pushOperand(displayValue!){
+        if let value = displayValue {
+            if let result = brain.pushOperand(value){
+                displayValue = result
+            } else {
+                displayValue = 0
+            }
+        }
+        
+    }
+    
+  
+    @IBAction func setVariable() {
+        if displayValue != nil {
+            brain.variableValues["M"] = displayValue
+            if let result = brain.evaluate() {
+                displayValue = result
+            } else {
+                displayValue = nil
+            }
+        }
+        userInMiddleOfTypingANumber = false
+
+    }
+    
+    
+
+    @IBAction func pushVariable() {
+        if userInMiddleOfTypingANumber {
+            enter()
+        }
+        if let result = brain.pushOperand("M") {
             displayValue = result
         } else {
-            displayValue = 0
+            displayValue = nil
         }
+   
+        
     }
+  
+
+    
     
     var displayValue: Double? {
         get {
-            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
+            
+            return NSNumberFormatter().numberFromString(display.text!)?.doubleValue
         }
         set {
             if newValue != nil {
                 display.text = "\(newValue!)"
-                history.text = brain.printOps()
+                
             }
             else {
                 display.text = " "
+               
                 
             }
-            
+            history.text = brain.description
            
         }
     }
