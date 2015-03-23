@@ -7,11 +7,11 @@ Sample Operation
 Input number before you can do the operation 
 
 Concepts Learned in this project
-1. Optionals
-2. Closures
-3. enum
-4. switch
-5. Dictionary
-6. Tuples
-7. Autolayout
-8. Recursion (not really an iOS thing, but something you should know!)
+- Optionals
+- Closures
+- enum
+- switch
+- Dictionary
+- Tuples
+- Autolayout
+- Recursion (not really an iOS thing, but something you should know!)
